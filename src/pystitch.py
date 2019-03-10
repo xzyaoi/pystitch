@@ -7,15 +7,48 @@ REQUIRED_COMMAND = [
     'cpclean',
     'linefind',
     'autooptimiser',
+    'celeste_standalone',
     'pano_modify',
     'convert',
 ]
+
+
+def argsToString(args):
+    to_string = ''
+    for each in args:
+        to_string = to_string + ' ' + each
+    to_string = to_string.strip()
+    return to_string
+
+
+class Command(object):
+    def __init__(self, name, args):
+        if name not in REQUIRED_COMMAND:
+            raise CommandError(
+                '400', 'Command [' + name + '] cannot be recognized!')
+        self.name = name
+        self.args = args
+
+    def run(self):
+        self.args.insert(0, self.name)
+        to_be_executed = argsToString(self.args)
+        try:
+            outputs = subprocess.check_output(
+                to_be_executed, stderr=subprocess.STDOUT, stdin=subprocess.PIPE, shell=True)
+        except subprocess.CalledProcessError as e:
+            out_bytes = e.output
+            out_code = str(e.returncode)
+            raise CommandError(out_code, out_bytes)
+        finally:
+            print('[pystitch]: ' + to_be_executed + ' executed!')
+
 
 class CommandError(RuntimeError):
     def __init__(self, status, message):
         self.status = status
         self.message = message
         self.args = (status, message)
+
 
 def warmUp():
     for each in REQUIRED_COMMAND:
@@ -29,14 +62,5 @@ def warmUp():
             pass
     print('[pystitch]: Test Finished!')
 
-def executeCommand(command, args):
-    query_command = args.insert(0, command)
-    try:
-        outputs = subprocess.check_output(query_command, stderr=subprocess.STDOUT, stdout=subprocess.STDOUT)
-    except subprocess.CalledProcessError as e:
-        out_bytes = e.output
-        out_code = str(e.returncode)
-        raise CommandError(out_code, out_bytes)
-    finally:
-        print('[pystitch]:' + command + ' ' + str(args) + 'executed!')
-    
+def cleanIntermediateFile():
+    print('[pystitch]: Intermediate Files Deleted')

@@ -1,5 +1,5 @@
 import unittest
-from src.pystitch import warmUp
+from pystitch import warmUp
 
 class TestWarmUpFunction(unittest.TestCase):
     def test_warmUp(self):

@@ -22,7 +22,7 @@ def automatic(directory='.', image_suffix='.jpg', project_name='project.pto'):
         Command('autooptimiser', ['-a', '-l', '-s', '-m', '-o', project_name, project_name]))
     # Optimal Crop and Optimal Size
     commands.append(Command('pano_modify', [
-                    '-o', 'project.pto', '--center', '--straighten', '--canvas=AUTO', '--crop=AUTO', project_name]))
+                    '-o', 'project.pto', '--center','--fov=AUTO' ,'--canvas=AUTO', '--ldr-file=JPG', project_name]))
     commands.append(Command('hugin_executor', [
                     '--stitching', '--prefix=pystitch', project_name]))
     for each in commands:

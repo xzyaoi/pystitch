@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="pystitch",
-    version="0.0.1",
+    version="0.0.2",
     author="Xiaozhe Yao",
     author_email="xiaozhe.yaoi@gmail.com",
     description="Python Binding for Pano Tools",

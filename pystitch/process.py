@@ -1,4 +1,4 @@
-from pystitch import Command, CommandError
+from pystitch.pystitch import Command, CommandError
 from os import path
 
 

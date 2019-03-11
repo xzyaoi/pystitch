@@ -1,5 +1,5 @@
 package:
-	python setup.py sdist bdist_wheel
+		python3 setup.py sdist bdist_wheel
 
 publish-test:
 	twine upload --repository-url https://test.pypi.org/legacy/ dist/*
@@ -10,4 +10,4 @@ publish-prod:
 clean:
 	rm -rf build
 	rm -rf dist
-	rm -rf cvpm.egg-info
+	rm -rf pystitch.egg-info

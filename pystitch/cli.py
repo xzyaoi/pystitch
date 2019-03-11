@@ -1,5 +1,5 @@
-from process import automatic
-from pystitch import warmUp
+from pystitch.process import automatic
+from pystitch.pystitch import warmUp
 
 import os
 import time
